@@ -8,9 +8,6 @@ def canUnlockAll(boxes):
     visited = set()
     keys = {0}
 
-    if not boxes:
-        return True
-
     while keys:
         current_box = keys.pop()
         visited.add(current_box)
