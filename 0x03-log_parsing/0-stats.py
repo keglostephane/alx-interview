@@ -16,31 +16,35 @@ possible ``status code``: 200, 301, 400, 401, 403, 404, 405, 500
 """
 import sys
 
-tline = 0
-size = 0
-status_code = ["200", "301", "400", "401", "403", "404", "405", "500"]
-status = []
+if __name__ == '__main__':
 
-try:
-    for line in sys.stdin:
-        tline += 1
-        data = line.split()
-        if len(data) >= 2 and data[-1].isdigit():
-            status_value = data[-2]
-            filesize = int(data[-1])
-            size += filesize
-            status.append(status_value)
+    filesize, count = (0, 0)
+    codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
+    stats = {k: 0 for k in codes}
 
-        if tline == 10:
-            tline = 0
-            print(f"File size: {size:d}")
-            for code in status_code:
-                if code in status:
-                    print(f"{code}: {status.count(code):d}")
-except KeyboardInterrupt:
-    pass
-finally:
-    print(f"File size: {size:d}")
-    for code in status_code:
-        if code in status:
-            print(f"{code}: {status.count(code):d}")
+    def print_stats(stats: dict, file_size: int) -> None:
+        print("File size: {:d}".format(filesize))
+        for k, v in sorted(stats.items()):
+            if v:
+                print("{}: {}".format(k, v))
+
+    try:
+        for line in sys.stdin:
+            count += 1
+            data = line.split()
+            try:
+                status_code = data[-2]
+                if status_code in stats:
+                    stats[status_code] += 1
+            except BaseException:
+                pass
+            try:
+                filesize += int(data[-1])
+            except BaseException:
+                pass
+            if count % 10 == 0:
+                print_stats(stats, filesize)
+        print_stats(stats, filesize)
+    except KeyboardInterrupt:
+        print_stats(stats, filesize)
+        raise
