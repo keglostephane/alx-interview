@@ -16,8 +16,8 @@ are used to encode the number.
 def validUTF8(data):
     """Check if a data set is a valid UTF-8 encoding"""
     bytes_num = 0   # number of bytes in data
-    mask = 1 << 
-    
+    mask = 1 << 7
+
     if not data:
         return False
 
