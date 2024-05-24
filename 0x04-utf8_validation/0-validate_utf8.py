@@ -20,7 +20,6 @@ def validUTF8(data):
 
     for num in data:
         bits = num & 0xFF   # keep only significant 8 digits
-
         # check for a new UTF-8 code unit
         if bytes_num == 0:
             # calculate the number of leading 1 in the byte
