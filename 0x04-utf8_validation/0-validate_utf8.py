@@ -18,9 +18,6 @@ def validUTF8(data):
     bytes_num = 0   # number of bytes in data
     mask = 1 << 7
 
-    if not data:
-        return False
-
     for num in data:
         bits = num & 0xFF   # keep only significant 8 digits
 
