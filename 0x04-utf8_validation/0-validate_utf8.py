@@ -27,7 +27,7 @@ def validUTF8(data):
                 bytes_num += 1
                 mask >>= 1
             # detect a ASCII character
-            if bytes_num == 0 or bytes_num == 1:
+            if bytes_num == 0:
                 continue
             if bytes_num > 4:
                 return False
