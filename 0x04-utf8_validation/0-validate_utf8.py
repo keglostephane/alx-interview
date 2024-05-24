@@ -19,15 +19,17 @@ def validUTF8(data):
     mask = 1 << 7
 
     for num in data:
+        bits = num & 0xFF   # keep only significant 8 digits
 
         if bytes_num == 0:
             # calculate the number of leading 1 in the byte
-            while num & mask:
+            while bits & mask:
                 bytes_num += 1
                 mask >>= 1
+            # detect a ASCII character
             if bytes_num == 0:
                 continue
-            if bytes_num == 1 or bytes_num > 4:
+            if bytes_num > 4:
                 return False
         else:
             if num >> 6 != 0b10:
