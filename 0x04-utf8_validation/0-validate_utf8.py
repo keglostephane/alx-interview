@@ -37,4 +37,7 @@ def validUTF8(data):
         # the number of continuation bytes remaining in data
         bytes_num -= 1
 
+    if bytes_num == 1 and len(data) == 1:
+        return True
+
     return bytes_num == 0
