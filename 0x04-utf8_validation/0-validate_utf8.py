@@ -16,7 +16,10 @@ are used to encode the number.
 def validUTF8(data):
     """Check if a data set is a valid UTF-8 encoding"""
     bytes_num = 0   # number of bytes in data
-    mask = 1 << 7
+    mask = 1 << 
+    
+    if not data:
+        return False
 
     for num in data:
         bits = num & 0xFF   # keep only significant 8 digits
@@ -36,8 +39,5 @@ def validUTF8(data):
                 return False
         # the number of continuation bytes remaining in data
         bytes_num -= 1
-
-    if bytes_num == 1 and len(data) != 1:
-        return False
 
     return bytes_num == 0
