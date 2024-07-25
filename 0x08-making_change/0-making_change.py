@@ -9,17 +9,19 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
+    # Handle edge case where no coins are provided
     if not coins:
         return -1
 
-    # Initialize a list to store the minimum number of coins needed for each value from 0 to total
+    # Initialize the dp array with a large number (infinity)
     dp = [float('inf')] * (total + 1)
-    dp[0] = 0  # Base case: 0 coins are needed to make a total of 0
+    dp[0] = 0  # Base case: 0 coins needed to make total of 0
 
-    # Iterate through each coin and update the dp array
+    # Populate the dp array
     for coin in coins:
         for x in range(coin, total + 1):
             if dp[x - coin] != float('inf'):
                 dp[x] = min(dp[x], dp[x - coin] + 1)
 
+    # Return the result
     return dp[total] if dp[total] != float('inf') else -1
